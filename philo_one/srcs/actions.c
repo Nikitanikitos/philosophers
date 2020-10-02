@@ -31,7 +31,6 @@ void	eating(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->table->mutex);
 	pthread_mutex_lock(philo->table->mutex);
 	write_status_philo(philo, " philosopher is sleeping");
 	pthread_mutex_unlock(philo->table->mutex);
@@ -40,7 +39,6 @@ void	sleeping(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->table->mutex);
 	pthread_mutex_lock(philo->table->mutex);
 	write_status_philo(philo, " philosopher is thinking");
 	pthread_mutex_unlock(philo->table->mutex);
