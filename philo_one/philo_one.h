@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef PHILO_ONE_H
-#define PHILO_ONE_H
+# define PHILO_ONE_H
 
 # include <stdio.h>
 # include <sys/time.h>
@@ -22,7 +22,7 @@
 # define FALSE	0
 # define TRUE	1
 
-typedef struct			 s_table
+typedef struct			s_table
 {
 	int					number_of_philo;
 	int					number_of_forks;
@@ -37,7 +37,7 @@ typedef struct			 s_table
 
 typedef struct			s_philo
 {
-	int 				id;
+	int					id;
 	int					*is_die;
 	int					number_of_times_philo_must_eat;
 	long int			last_lunch_time;
@@ -61,9 +61,9 @@ void					ft_putendl_fd(char *s, int fd);
 void					ft_putnbr_fd(long int nbr, int fd);
 void					ft_putstr_fd(char *s, int fd);
 
-int 					right_fork(int philo_id, int number_of_philo);
+int						right_fork(int philo_id, int number_of_philo);
 long int				get_current_millisecond(void);
-void 					*check_death(void *thread_data);
+void					*check_death(void *thread_data);
 
 int						ft_atoi(char *nptr);
 int						ft_strlen(const char *str);
