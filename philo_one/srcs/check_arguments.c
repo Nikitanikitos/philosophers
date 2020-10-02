@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_arguments.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: imicah <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/02 15:07:02 by imicah            #+#    #+#             */
+/*   Updated: 2020/10/02 15:07:03 by imicah           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-int 	exit_with_error(char *error)
+int		exit_with_error(char *error)
 {
 	ft_putstr_fd("\e[31m", 2);
 	ft_putendl_fd(error, 2);
@@ -20,9 +32,9 @@ int		is_number(char *number)
 	return (1);
 }
 
-int 	check_that_is_number(char **av)
+int		check_that_is_number(char **av)
 {
-	int 	i;
+	int		i;
 
 	i = 1;
 	while (av[i])
@@ -33,9 +45,9 @@ int 	check_that_is_number(char **av)
 	return (TRUE);
 }
 
-int 	check_that_is_correct_number(char **av)
+int		check_that_is_correct_number(char **av)
 {
-	int 	i;
+	int		i;
 
 	i = 1;
 	while (av[i])

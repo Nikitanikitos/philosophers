@@ -16,13 +16,6 @@ void	eating(t_philo *philo)
 {
 	const t_table	*table = philo->table;
 
-	pthread_mutex_lock(philo->table->mutex);
-	if (check_time_to_die(philo))
-	{
-		pthread_mutex_unlock(philo->table->mutex);
-		return ;
-	}
-	pthread_mutex_unlock(philo->table->mutex);
 	pthread_mutex_lock(&table->forks_mutex[philo->id]);
 	pthread_mutex_lock(&table->forks_mutex[right_fork(philo->id,
 													table->number_of_philo)]);
@@ -38,13 +31,6 @@ void	eating(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->mutex);
-	if (check_time_to_die(philo))
-	{
-		pthread_mutex_unlock(philo->table->mutex);
-		return ;
-	}
-	pthread_mutex_unlock(philo->table->mutex);
 	pthread_mutex_unlock(philo->table->mutex);
 	pthread_mutex_lock(philo->table->mutex);
 	write_status_philo(philo, " philosopher is sleeping");
@@ -54,13 +40,6 @@ void	sleeping(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->mutex);
-	if (check_time_to_die(philo))
-	{
-		pthread_mutex_unlock(philo->table->mutex);
-		return ;
-	}
-	pthread_mutex_unlock(philo->table->mutex);
 	pthread_mutex_unlock(philo->table->mutex);
 	pthread_mutex_lock(philo->table->mutex);
 	write_status_philo(philo, " philosopher is thinking");
@@ -69,11 +48,24 @@ void	thinking(t_philo *philo)
 
 void	*action(void *thread_data)
 {
-	t_philo	*philosopher;
+	t_philo		*philo;
+	pthread_t	thread;
 
-	philosopher = (t_philo*)thread_data;
-	eating(philosopher);
-	sleeping(philosopher);
-	thinking(philosopher);
+	pthread_create(&thread, NULL, check_death, thread_data);
+	philo = (t_philo*)thread_data;
+	while (philo->number_of_times_philo_must_eat)
+	{
+		if (*philo->is_die)
+			break ;
+		eating(philo);
+		if (*philo->is_die)
+			break ;
+		sleeping(philo);
+		if (*philo->is_die)
+			break ;
+		thinking(philo);
+		philo->number_of_times_philo_must_eat--;
+	}
+	pthread_join(thread, NULL);
 	return (NULL);
 }
