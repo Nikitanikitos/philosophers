@@ -2,9 +2,9 @@
 
 int 	exit_with_error(char *error)
 {
-	write(2, "\e[31m", 5);
+	ft_putstr_fd("\e[31m", 2);
 	ft_putendl_fd(error, 2);
-	write(2, "\e[31m", 5);
+	ft_putstr_fd("\e[31m", 5);
 	return (1);
 }
 
