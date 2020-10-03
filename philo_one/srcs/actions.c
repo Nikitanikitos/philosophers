@@ -12,26 +12,6 @@
 
 #include "philo_one.h"
 
-//void	eating(t_philo *philo)
-//{
-//	const t_table	*table = philo->table;
-//	const int 		id_right_fork = right_fork(philo->id, table->number_of_philo);
-//
-//	pthread_mutex_lock(philo->table->waiter);
-//	pthread_mutex_lock(&table->forks_mutex[philo->id]);
-//	write_status_philo(philo, " has taken a fork\n");
-//	pthread_mutex_lock(&table->forks_mutex[id_right_fork]);
-//	write_status_philo(philo, " has taken a fork\n");
-//	pthread_mutex_unlock(philo->table->waiter);
-//
-//	write_status_philo(philo, " is eating\n");
-//	philo->last_lunch_time = get_current_millisecond();
-//	usleep((useconds_t)philo->table->time_to_eat);
-//
-//	pthread_mutex_unlock(&table->forks_mutex[philo->id]);
-//	pthread_mutex_unlock(&table->forks_mutex[id_right_fork]);
-//}
-
 void	take_two_forks(t_philo *philo, int id_fork1, int id_fork2)
 {
 	const t_table	*table = philo->table;
@@ -53,9 +33,9 @@ void	put_two_forks(t_philo *philo, int id_fork1, int id_fork2)
 void	eating(t_philo *philo)
 {
 	const t_table	*table = philo->table;
-	const int 		id_right_fork = right_fork(philo->id,
-														table->number_of_philo);
+	int				id_right_fork;
 
+	id_right_fork = right_fork(philo->id, table->number_of_philo);
 	if (philo->id % 2)
 		take_two_forks(philo, philo->id, id_right_fork);
 	else

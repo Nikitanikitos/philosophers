@@ -61,11 +61,9 @@ void					ft_putendl_fd(char *s, int fd);
 void					ft_putnbr_fd(long int nbr, int fd);
 void					ft_putstr_fd(char *s, int fd);
 
-int 					left_fork(int philo_id, int number_of_philo);
 int						right_fork(int philo_id, int number_of_philo);
 long int				get_current_millisecond(void);
 void					*check_death(void *thread_data);
-
 
 int						ft_atoi(char *nptr);
 int						ft_strlen(const char *str);

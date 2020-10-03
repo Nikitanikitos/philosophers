@@ -24,14 +24,14 @@ char		*get_output_string(char *current_millisecond, char *id,
 																char *action)
 {
 	int		total_size;
-	int 	i;
-	int 	q;
+	int		i;
+	int		q;
 	char	*result;
 
 	i = 0;
 	total_size = ft_strlen(current_millisecond) + ft_strlen(id) +
 															ft_strlen(action);
-	result = (char*)malloc(sizeof(char ) * total_size + 2);
+	result = (char*)malloc(sizeof(char) * total_size + 2);
 	q = 0;
 	while (current_millisecond[q])
 		result[i++] = current_millisecond[q++];
@@ -57,12 +57,8 @@ void		write_status_philo(t_philo *philo, char *action)
 	output_string = get_output_string(
 			ft_itoa(get_current_millisecond() - philo->table->start_simulation),
 			ft_itoa(philo->id + 1), action);
-	ft_putstr_fd(output_string , 1);
-}
-
-int 		left_fork(int philo_id, int number_of_philo)
-{
-	return ((philo_id - 1 + number_of_philo) % number_of_philo);
+	ft_putstr_fd(output_string, 1);
+	free(output_string);
 }
 
 int			right_fork(int philo_id, int number_of_philo)

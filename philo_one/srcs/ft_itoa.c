@@ -14,7 +14,7 @@
 
 static int	ft_len(long int n)
 {
-	unsigned char		i;
+	unsigned char	i;
 
 	i = 0;
 	if (n == 0)
@@ -31,9 +31,9 @@ static int	ft_len(long int n)
 
 char		*ft_itoa(long int n)
 {
-	unsigned char		i;
-	char				*result;
-	char				pos_or_neg;
+	unsigned char	i;
+	char			*result;
+	char			pos_or_neg;
 
 	i = ft_len(n);
 	pos_or_neg = 1;
