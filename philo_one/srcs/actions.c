@@ -12,36 +12,69 @@
 
 #include "philo_one.h"
 
+//void	eating(t_philo *philo)
+//{
+//	const t_table	*table = philo->table;
+//	const int 		id_right_fork = right_fork(philo->id, table->number_of_philo);
+//
+//	pthread_mutex_lock(philo->table->waiter);
+//	pthread_mutex_lock(&table->forks_mutex[philo->id]);
+//	write_status_philo(philo, " has taken a fork");
+//	pthread_mutex_lock(&table->forks_mutex[id_right_fork]);
+//	write_status_philo(philo, " has taken a fork");
+//	pthread_mutex_unlock(philo->table->waiter);
+//
+//	write_status_philo(philo, " is eating");
+//	philo->last_lunch_time = get_current_millisecond();
+//	usleep((useconds_t)philo->table->time_to_eat);
+//
+//	pthread_mutex_unlock(&table->forks_mutex[philo->id]);
+//	pthread_mutex_unlock(&table->forks_mutex[id_right_fork]);
+//}
+
 void	eating(t_philo *philo)
 {
 	const t_table	*table = philo->table;
+	const int 		id_right_fork = right_fork(philo->id, table->number_of_philo);
 
-	pthread_mutex_lock(&table->forks_mutex[philo->id]);
-	pthread_mutex_lock(&table->forks_mutex[right_fork(philo->id,
-													table->number_of_philo)]);
-	pthread_mutex_lock(philo->table->mutex);
-	write_status_philo(philo, " philo is eating");
-	pthread_mutex_unlock(philo->table->mutex);
+	if (philo->id % 2)
+	{
+		pthread_mutex_lock(&table->forks_mutex[philo->id]);
+		write_status_philo(philo, " has taken a fork");
+		pthread_mutex_lock(&table->forks_mutex[id_right_fork]);
+		write_status_philo(philo, " has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&table->forks_mutex[id_right_fork]);
+		write_status_philo(philo, " has taken a fork");
+		pthread_mutex_lock(&table->forks_mutex[philo->id]);
+		write_status_philo(philo, " has taken a fork");
+	}
+	write_status_philo(philo, " is eating");
 	philo->last_lunch_time = get_current_millisecond();
 	usleep((useconds_t)philo->table->time_to_eat);
-	pthread_mutex_unlock(&table->forks_mutex[philo->id]);
-	pthread_mutex_unlock(&table->forks_mutex[right_fork(philo->id,
-													table->number_of_philo)]);
+	if (philo->id % 2)
+	{
+		pthread_mutex_unlock(&table->forks_mutex[philo->id]);
+		pthread_mutex_unlock(&table->forks_mutex[id_right_fork]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&table->forks_mutex[id_right_fork]);
+		pthread_mutex_unlock(&table->forks_mutex[philo->id]);
+	}
 }
 
 void	sleeping(t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->mutex);
-	write_status_philo(philo, " philosopher is sleeping");
-	pthread_mutex_unlock(philo->table->mutex);
+	write_status_philo(philo, " is sleeping");
 	usleep((useconds_t)philo->table->time_to_sleep);
 }
 
 void	thinking(t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->mutex);
-	write_status_philo(philo, " philosopher is thinking");
-	pthread_mutex_unlock(philo->table->mutex);
+	write_status_philo(philo, " is thinking");
 }
 
 void	*action(void *thread_data)

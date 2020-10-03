@@ -32,7 +32,7 @@ typedef struct			s_table
 	long int			time_to_sleep;
 	long int			start_simulation;
 	pthread_mutex_t		*forks_mutex;
-	pthread_mutex_t		*mutex;
+	pthread_mutex_t		*waiter;
 }						t_table;
 
 typedef struct			s_philo
@@ -61,13 +61,18 @@ void					ft_putendl_fd(char *s, int fd);
 void					ft_putnbr_fd(long int nbr, int fd);
 void					ft_putstr_fd(char *s, int fd);
 
+int 					left_fork(int philo_id, int number_of_philo);
 int						right_fork(int philo_id, int number_of_philo);
 long int				get_current_millisecond(void);
 void					*check_death(void *thread_data);
 
+
 int						ft_atoi(char *nptr);
 int						ft_strlen(const char *str);
 int						check_arguments(int ac, char **av);
+
+char					*ft_itoa(long int n);
+char					*ft_strjoin(char const *s1, char const *s2);
 
 char					ft_isdigit(char c);
 
