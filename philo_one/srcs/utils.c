@@ -20,7 +20,8 @@ long int	get_current_millisecond(void)
 	return (timeval.tv_sec * 1000 + timeval.tv_usec / 1000);
 }
 
-char		*get_output_string(char *current_millisecond, char *id, char *action)
+char		*get_output_string(char *current_millisecond, char *id,
+																char *action)
 {
 	int		total_size;
 	int 	i;
@@ -28,7 +29,8 @@ char		*get_output_string(char *current_millisecond, char *id, char *action)
 	char	*result;
 
 	i = 0;
-	total_size = ft_strlen(current_millisecond) + ft_strlen(id) + ft_strlen(action);
+	total_size = ft_strlen(current_millisecond) + ft_strlen(id) +
+															ft_strlen(action);
 	result = (char*)malloc(sizeof(char ) * total_size + 2);
 	q = 0;
 	while (current_millisecond[q])
@@ -55,7 +57,7 @@ void		write_status_philo(t_philo *philo, char *action)
 	output_string = get_output_string(
 			ft_itoa(get_current_millisecond() - philo->table->start_simulation),
 			ft_itoa(philo->id + 1), action);
-	ft_putendl_fd(output_string , 1);
+	ft_putstr_fd(output_string , 1);
 }
 
 int 		left_fork(int philo_id, int number_of_philo)
@@ -76,9 +78,7 @@ void		*check_death(void *thread_data)
 	while (get_current_millisecond() - philo->last_lunch_time
 												<= philo->table->time_to_die)
 		;
-	pthread_mutex_lock(philo->table->waiter);
-	write_status_philo(philo, " is died...");
+	write_status_philo(philo, " is died...\n");
 	*philo->is_die = 1;
-	pthread_mutex_unlock(philo->table->waiter);
 	return (NULL);
 }

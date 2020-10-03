@@ -15,7 +15,7 @@ NAME	= philosophers
 SRCS    = $(shell find srcs/ -type f -name '*.c' )
 OBJS    = $(SRCS:%.c=%.o)
 
-HEADERS = -I.
+HEADERS = -I. -pthread
 
 FLAGS   = -Wall -Wextra -Werror
 
@@ -24,10 +24,10 @@ FLAGS   = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	gcc -g ${FLAGS} ${HEADERS} ${OBJS} -o ${NAME}
+	gcc ${FLAGS} ${HEADERS} ${OBJS} -o ${NAME}
 
 %.o: %.c
-	gcc -g ${FLAGS} ${HEADERS} -o $@ -c $<
+	gcc ${FLAGS} ${HEADERS} -o $@ -c $<
 
 clean:
 	rm -f $(OBJS)
