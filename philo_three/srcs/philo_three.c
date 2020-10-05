@@ -12,40 +12,36 @@
 
 #include "philo_three.h"
 
-void	threads_join(pthread_t *threads, int number_of_philo)
+void	fork_create(t_table *table, int is_die)
 {
-	int		i;
-
-	i = 0;
-	while (i < number_of_philo)
-		pthread_join(threads[i++], NULL);
-}
-
-void	fork_create(pthread_t *threads, t_philo *philo,
-					t_table *table, int is_die)
-{
-	int		i;
+	int			i;
+	t_philo		philo[table->number_of_philo];
+	pid_t		pid;
 
 	i = 0;
 	while (i < table->number_of_philo)
 	{
-		philo_init(&philo[i], table, i, &is_die);
-		pthread_create(&threads[i], NULL, action, &philo[i]);
-		i++;
+		pid = fork();
+		if (pid == 0)
+		{
+			philo_init(&philo[i], table, i, &is_die);
+			action(&philo[i]);
+			exit(0);
+		}
+		else
+			i++;
 	}
+	wait(0);
 }
 
 void	start_forks(t_table *table)
 {
-	pthread_t		forks[table->number_of_philo];
 	sem_t			*sem_forks;
-	t_philo			philo[table->number_of_philo];
 	static int		is_die;
 
 	sem_forks = sem_open(NULL, O_CREAT, NULL, table->number_of_forks);
 	table->sem_forks = sem_forks;
-	fork_create(forks, philo, table, is_die);
-	threads_join(forks, table->number_of_philo);
+	fork_create(table, is_die);
 	sem_close(sem_forks);
 }
 

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_TWO_H
-# define PHILO_TWO_H
+#ifndef PHILO_THREE_H
+# define PHILO_THREE_H
 
 # include <sys/time.h>
 # include <pthread.h>
@@ -40,8 +40,8 @@ typedef struct			s_philo
 	int					id;
 	int					*is_die;
 	long int			last_lunch_time;
+	int 				number_of_times_each_philo_must_eat;
 	t_table				*table;
-
 }						t_philo;
 
 void					table_init(t_table *table, char **av, sem_t *sem);

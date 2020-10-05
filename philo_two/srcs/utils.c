@@ -68,8 +68,3 @@ void		write_status_philo(t_philo *philo, char *action)
 	ft_putstr_fd(output_string, 1);
 	free(output_string);
 }
-
-int			right_fork(int philo_id, int number_of_philo)
-{
-	return ((philo_id + 1) % number_of_philo);
-}
