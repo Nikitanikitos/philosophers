@@ -51,13 +51,14 @@ void	start_threads(t_table *table)
 
 int		main(int ac, char **av)
 {
-	t_table					table;
-	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
+	t_table		table;
+	sem_t		*sem;
 
+	sem = sem_open(NULL, O_CREAT);
 	if (check_arguments(ac, av))
 		return (1);
-	table_init(&table, av, &mutex);
+	table_init(&table, av, sem);
 	start_threads(&table);
-	pthread_mutex_destroy(&mutex);
+	sem_close(sem);
 	return (0);
 }

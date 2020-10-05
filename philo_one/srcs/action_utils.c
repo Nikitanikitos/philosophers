@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_one.h"
 
 void	take_two_forks(t_philo *philo, int id_fork1, int id_fork2)
 {
