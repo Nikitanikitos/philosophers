@@ -28,8 +28,8 @@ typedef struct			s_table
 	int					number_of_forks;
 	int					number_of_times_each_philo_must_eat;
 	long int			time_to_die;
-	long int			time_to_eat;
-	long int			time_to_sleep;
+	unsigned int		time_to_eat;
+	unsigned int		time_to_sleep;
 	long int			start_simulation;
 	pthread_mutex_t		*forks_mutex;
 	pthread_mutex_t		*waiter;

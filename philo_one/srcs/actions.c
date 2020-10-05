@@ -42,7 +42,7 @@ void	eating(t_philo *philo)
 		take_two_forks(philo, id_right_fork, philo->id);
 	write_status_philo(philo, " is eating\n");
 	philo->last_lunch_time = get_current_millisecond();
-	usleep((useconds_t)philo->table->time_to_eat);
+	usleep(philo->table->time_to_eat);
 	if (philo->id % 2)
 		put_two_forks(philo, philo->id, id_right_fork);
 	else
@@ -52,7 +52,7 @@ void	eating(t_philo *philo)
 void	sleeping(t_philo *philo)
 {
 	write_status_philo(philo, " is sleeping\n");
-	usleep((useconds_t)philo->table->time_to_sleep);
+	usleep(philo->table->time_to_sleep);
 }
 
 void	thinking(t_philo *philo)
