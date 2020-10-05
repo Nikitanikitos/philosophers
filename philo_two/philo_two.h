@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo_two.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imicah <imicah@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_H
-# define PHILO_ONE_H
+#ifndef PHILO_TWO_H
+# define PHILO_TWO_H
 
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <semaphore.h>
 
 # define FALSE	0
 # define TRUE	1
@@ -30,8 +31,8 @@ typedef struct			s_table
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
 	long int			start_simulation;
-	pthread_mutex_t		*forks_mutex;
-	pthread_mutex_t		*mutex;
+	sem_t				*sem_forks;
+	sem_t				*sem;
 }						t_table;
 
 typedef struct			s_philo

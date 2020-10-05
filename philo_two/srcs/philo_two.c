@@ -38,15 +38,15 @@ void	threads_create(pthread_t *threads, t_philo *philo,
 void	start_threads(t_table *table)
 {
 	pthread_t		threads[table->number_of_philo];
-	pthread_mutex_t	forks_mutex[table->number_of_forks];
+	sem_t			*sem_forks;
 	t_philo			philo[table->number_of_philo];
 	static int		is_die;
 
-	mutex_forks_init(forks_mutex, table->number_of_forks);
-	table->forks_mutex = forks_mutex;
+	sem_forks = sem_open(NULL, O_CREAT, NULL, table->number_of_forks);
+	table->sem_forks = sem_forks;
 	threads_create(threads, philo, table, is_die);
 	threads_join(threads, table->number_of_philo);
-	mutex_forks_destroy(forks_mutex, table->number_of_forks);
+	sem_close(sem_forks);
 }
 
 int		main(int ac, char **av)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "../philo_two.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
