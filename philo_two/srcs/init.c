@@ -12,7 +12,7 @@
 
 #include "philo_two.h"
 
-void	table_init(t_table *table, char **av, pthread_mutex_t *mutex)
+void	table_init(t_table *table, char **av, sem_t *sem)
 {
 	struct timeval	timeval;
 
@@ -20,10 +20,10 @@ void	table_init(t_table *table, char **av, pthread_mutex_t *mutex)
 	table->number_of_philo = ft_atoi(av[1]);
 	table->number_of_forks = table->number_of_philo;
 	table->time_to_die = ft_atoi(av[2]);
-	table->time_to_eat = ft_atoi(av[3]) * 1000;
-	table->time_to_sleep = ft_atoi(av[4]) * 1000;
+	table->time_to_eat = (unsigned)ft_atoi(av[3]);
+	table->time_to_sleep = (unsigned)ft_atoi(av[4]);
 	table->start_simulation = get_current_millisecond();
-	table->sem = mutex;
+	table->sem = sem;
 	if (av[5])
 		table->number_of_times_each_philo_must_eat = ft_atoi(av[5]);
 	else
@@ -36,24 +36,4 @@ void	philo_init(t_philo *philo, t_table *table, int id, int *death_flag)
 	philo->table = table;
 	philo->is_die = death_flag;
 	philo->last_lunch_time = get_current_millisecond();
-	philo->number_of_times_philo_must_eat =
-									table->number_of_times_each_philo_must_eat;
-}
-
-void	mutex_forks_init(pthread_mutex_t *forks_mutex, int number_of_forks)
-{
-	int		i;
-
-	i = 0;
-	while (i < number_of_forks)
-		pthread_mutex_init(&forks_mutex[i++], NULL);
-}
-
-void	mutex_forks_destroy(pthread_mutex_t *forks_mutex, int number_of_forks)
-{
-	int		i;
-
-	i = 0;
-	while (i < number_of_forks)
-		pthread_mutex_destroy(&forks_mutex[i++]);
 }

@@ -12,24 +12,6 @@
 
 #include "philo_two.h"
 
-void	take_two_forks(t_philo *philo, int id_fork1, int id_fork2)
-{
-	const t_table	*table = philo->table;
-
-	pthread_mutex_lock(&table->forks_mutex[id_fork1]);
-	write_status_philo(philo, " has taken a fork\n");
-	pthread_mutex_lock(&table->forks_mutex[id_fork2]);
-	write_status_philo(philo, " has taken a fork\n");
-}
-
-void	put_two_forks(t_philo *philo, int id_fork1, int id_fork2)
-{
-	const t_table	*table = philo->table;
-
-	pthread_mutex_unlock(&table->forks_mutex[id_fork1]);
-	pthread_mutex_unlock(&table->forks_mutex[id_fork2]);
-}
-
 void	*check_death(void *thread_data)
 {
 	t_philo				*philo;
@@ -38,9 +20,9 @@ void	*check_death(void *thread_data)
 	while (get_current_millisecond() - philo->last_lunch_time
 												<= philo->table->time_to_die)
 		usleep(10);
-	pthread_mutex_lock(philo->table->sem);
+	sem_wait(philo->table->sem);
 	write_status_philo(philo, " is died...\n");
 	*philo->is_die = 1;
-	pthread_mutex_unlock(philo->table->sem);
+	sem_post(philo->table->sem);
 	return (NULL);
 }
