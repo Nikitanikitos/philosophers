@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 void	threads_join(pthread_t *threads, int number_of_philo)
 {
@@ -21,8 +21,8 @@ void	threads_join(pthread_t *threads, int number_of_philo)
 		pthread_join(threads[i++], NULL);
 }
 
-void	threads_create(pthread_t *threads, t_philo *philo,
-													t_table *table, int is_die)
+void	fork_create(pthread_t *threads, t_philo *philo,
+					t_table *table, int is_die)
 {
 	int		i;
 
@@ -35,17 +35,17 @@ void	threads_create(pthread_t *threads, t_philo *philo,
 	}
 }
 
-void	start_threads(t_table *table)
+void	start_forks(t_table *table)
 {
-	pthread_t		threads[table->number_of_philo];
+	pthread_t		forks[table->number_of_philo];
 	sem_t			*sem_forks;
 	t_philo			philo[table->number_of_philo];
 	static int		is_die;
 
 	sem_forks = sem_open(NULL, O_CREAT, NULL, table->number_of_forks);
 	table->sem_forks = sem_forks;
-	threads_create(threads, philo, table, is_die);
-	threads_join(threads, table->number_of_philo);
+	fork_create(forks, philo, table, is_die);
+	threads_join(forks, table->number_of_philo);
 	sem_close(sem_forks);
 }
 
@@ -58,7 +58,7 @@ int		main(int ac, char **av)
 	if (check_arguments(ac, av))
 		return (1);
 	table_init(&table, av, sem);
-	start_threads(&table);
+	start_forks(&table);
 	sem_close(sem);
 	return (0);
 }

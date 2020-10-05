@@ -36,6 +36,8 @@ void	philo_init(t_philo *philo, t_table *table, int id, int *death_flag)
 	philo->table = table;
 	philo->is_die = death_flag;
 	philo->last_lunch_time = get_current_millisecond();
+	philo->number_of_times_philo_must_eat =
+									table->number_of_times_each_philo_must_eat;
 }
 
 void	mutex_forks_init(pthread_mutex_t *forks_mutex, int number_of_forks)

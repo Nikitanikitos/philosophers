@@ -38,6 +38,7 @@ typedef struct			s_philo
 {
 	int					id;
 	int					*is_die;
+	int					number_of_times_philo_must_eat;
 	long int			last_lunch_time;
 	t_table				*table;
 

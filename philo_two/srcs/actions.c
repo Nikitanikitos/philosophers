@@ -60,7 +60,7 @@ void	*action(void *thread_data)
 
 	pthread_create(&thread, NULL, check_death, thread_data);
 	philo = (t_philo*)thread_data;
-	while (philo->table->number_of_times_each_philo_must_eat)
+	while (philo->number_of_times_each_philo_must_eat)
 	{
 		if (*philo->is_die)
 			break ;
@@ -71,7 +71,7 @@ void	*action(void *thread_data)
 		if (*philo->is_die)
 			break ;
 		thinking(philo);
-		philo->table->number_of_times_each_philo_must_eat--;
+		philo->number_of_times_each_philo_must_eat--;
 	}
 	pthread_join(thread, NULL);
 	return (NULL);
