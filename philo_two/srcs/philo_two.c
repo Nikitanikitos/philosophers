@@ -54,7 +54,7 @@ int		main(int ac, char **av)
 	t_table		table;
 	sem_t		*sem;
 
-	sem = sem_open(NULL, O_CREAT);
+	sem = sem_open(NULL, O_CREAT, 0, 1);
 	if (check_arguments(ac, av))
 		return (1);
 	table_init(&table, av, sem);
