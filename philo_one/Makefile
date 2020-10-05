@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= philosophers
+NAME	= philo_one
 
 SRCS    = $(shell find srcs/ -type f -name '*.c' )
 OBJS    = $(SRCS:%.c=%.o)
