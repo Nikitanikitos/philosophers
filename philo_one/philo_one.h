@@ -13,7 +13,6 @@
 #ifndef PHILO_ONE_H
 # define PHILO_ONE_H
 
-# include <stdio.h>
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdlib.h>
@@ -32,7 +31,7 @@ typedef struct			s_table
 	unsigned int		time_to_sleep;
 	long int			start_simulation;
 	pthread_mutex_t		*forks_mutex;
-	pthread_mutex_t		*waiter;
+	pthread_mutex_t		*mutex;
 }						t_table;
 
 typedef struct			s_philo

@@ -23,7 +23,7 @@ void	table_init(t_table *table, char **av, pthread_mutex_t *mutex)
 	table->time_to_eat = ft_atoi(av[3]) * 1000;
 	table->time_to_sleep = ft_atoi(av[4]) * 1000;
 	table->start_simulation = get_current_millisecond();
-	table->waiter = mutex;
+	table->mutex = mutex;
 	if (av[5])
 		table->number_of_times_each_philo_must_eat = ft_atoi(av[5]);
 	else
