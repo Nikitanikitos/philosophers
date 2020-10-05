@@ -12,6 +12,14 @@
 
 #include "philo_one.h"
 
+void		ft_usleep(long int time)
+{
+	const long int	start_action = get_current_millisecond();
+
+	while (get_current_millisecond() - start_action < time)
+		usleep(10);
+}
+
 long int	get_current_millisecond(void)
 {
 	struct timeval	timeval;
@@ -64,17 +72,4 @@ void		write_status_philo(t_philo *philo, char *action)
 int			right_fork(int philo_id, int number_of_philo)
 {
 	return ((philo_id + 1) % number_of_philo);
-}
-
-void		*check_death(void *thread_data)
-{
-	t_philo		*philo;
-
-	philo = (t_philo*)thread_data;
-	while (get_current_millisecond() - philo->last_lunch_time
-												<= philo->table->time_to_die)
-		;
-	write_status_philo(philo, " is died...\n");
-	*philo->is_die = 1;
-	return (NULL);
 }

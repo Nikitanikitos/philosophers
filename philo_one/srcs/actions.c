@@ -12,24 +12,6 @@
 
 #include "philo_one.h"
 
-void	take_two_forks(t_philo *philo, int id_fork1, int id_fork2)
-{
-	const t_table	*table = philo->table;
-
-	pthread_mutex_lock(&table->forks_mutex[id_fork1]);
-	write_status_philo(philo, " has taken a fork\n");
-	pthread_mutex_lock(&table->forks_mutex[id_fork2]);
-	write_status_philo(philo, " has taken a fork\n");
-}
-
-void	put_two_forks(t_philo *philo, int id_fork1, int id_fork2)
-{
-	const t_table	*table = philo->table;
-
-	pthread_mutex_unlock(&table->forks_mutex[id_fork1]);
-	pthread_mutex_unlock(&table->forks_mutex[id_fork2]);
-}
-
 void	eating(t_philo *philo)
 {
 	const t_table	*table = philo->table;
@@ -42,17 +24,17 @@ void	eating(t_philo *philo)
 		take_two_forks(philo, id_right_fork, philo->id);
 	write_status_philo(philo, " is eating\n");
 	philo->last_lunch_time = get_current_millisecond();
-	usleep(philo->table->time_to_eat);
+	ft_usleep(philo->table->time_to_eat / 1000);
 	if (philo->id % 2)
-		put_two_forks(philo, philo->id, id_right_fork);
-	else
 		put_two_forks(philo, id_right_fork, philo->id);
+	else
+		put_two_forks(philo, philo->id, id_right_fork);
 }
 
 void	sleeping(t_philo *philo)
 {
 	write_status_philo(philo, " is sleeping\n");
-	usleep(philo->table->time_to_sleep);
+	ft_usleep(philo->table->time_to_sleep / 1000);
 }
 
 void	thinking(t_philo *philo)

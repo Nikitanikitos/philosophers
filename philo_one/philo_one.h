@@ -55,23 +55,24 @@ void					mutex_forks_destroy(pthread_mutex_t *forks_mutex,
 														int number_of_forks);
 
 void					*action(void *thread_data);
-void					write_status_philo(t_philo *philo, char *action);
+void					*check_death(void *thread_data);
+void					take_two_forks(t_philo *philo, int id_fork1,
+																int id_fork2);
+void					put_two_forks(t_philo *philo, int id_fork1,
+																int id_fork2);
 
+void					write_status_philo(t_philo *philo, char *action);
+void					ft_usleep(long int time);
 void					ft_putendl_fd(char *s, int fd);
-void					ft_putnbr_fd(long int nbr, int fd);
 void					ft_putstr_fd(char *s, int fd);
 
-int						right_fork(int philo_id, int number_of_philo);
 long int				get_current_millisecond(void);
-void					*check_death(void *thread_data);
-
+int						right_fork(int philo_id, int number_of_philo);
 int						ft_atoi(char *nptr);
 int						ft_strlen(const char *str);
 int						check_arguments(int ac, char **av);
 
 char					*ft_itoa(long int n);
-char					*ft_strjoin(char const *s1, char const *s2);
-
 char					ft_isdigit(char c);
 
 #endif

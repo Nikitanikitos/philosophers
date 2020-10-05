@@ -21,22 +21,16 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-void	ft_putnbr_fd(long int nbr, int fd)
-{
-	char		c;
-
-	if (nbr < 0)
-	{
-		write(1, "-", 1);
-		nbr = -nbr;
-	}
-	if (nbr > 9)
-		ft_putnbr_fd(nbr / 10, fd);
-	c = nbr % 10 + '0';
-	write(fd, &c, 1);
-}
-
 void	ft_putstr_fd(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
+}
+
+int		ft_strlen(const char *str)
+{
+	const char	*str_copy = str;
+
+	while (*str)
+		str++;
+	return ((int)(str - str_copy));
 }
