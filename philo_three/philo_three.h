@@ -14,6 +14,7 @@
 # define PHILO_THREE_H
 
 # include <sys/time.h>
+# include <sys/wait.h>
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
