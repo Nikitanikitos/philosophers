@@ -39,7 +39,8 @@ void	start_forks(t_table *table)
 	sem_t			*sem_forks;
 	static int		is_die;
 
-	sem_forks = sem_open(NULL, O_CREAT, NULL, table->number_of_forks);
+	sem_unlink("forks");
+	sem_forks = sem_open("forks", O_CREAT, NULL, table->number_of_forks);
 	table->sem_forks = sem_forks;
 	fork_create(table, is_die);
 	sem_close(sem_forks);
@@ -50,7 +51,8 @@ int		main(int ac, char **av)
 	t_table		table;
 	sem_t		*sem;
 
-	sem = sem_open(NULL, O_CREAT);
+	sem_unlink("check_die");
+	sem = sem_open("check_die", O_CREAT);
 	if (check_arguments(ac, av))
 		return (1);
 	table_init(&table, av, sem);

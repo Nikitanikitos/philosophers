@@ -42,7 +42,8 @@ void	start_threads(t_table *table)
 	t_philo			philo[table->number_of_philo];
 	static int		is_die;
 
-	sem_forks = sem_open(NULL, O_CREAT, NULL, table->number_of_forks);
+	sem_unlink("forks");
+	sem_forks = sem_open("forks", O_CREAT, NULL, table->number_of_forks);
 	table->sem_forks = sem_forks;
 	threads_create(threads, philo, table, is_die);
 	threads_join(threads, table->number_of_philo);
@@ -54,7 +55,8 @@ int		main(int ac, char **av)
 	t_table		table;
 	sem_t		*sem;
 
-	sem = sem_open(NULL, O_CREAT, 0, 1);
+	sem_unlink("check_die");
+	sem = sem_open("check_die", O_CREAT);
 	if (check_arguments(ac, av))
 		return (1);
 	table_init(&table, av, sem);

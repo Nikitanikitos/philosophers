@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <semaphore.h>
+# include <fcntl.h>
 
 # define FALSE	0
 # define TRUE	1

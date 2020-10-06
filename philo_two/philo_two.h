@@ -6,7 +6,7 @@
 /*   By: imicah <imicah@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 20:24:21 by imicah            #+#    #+#             */
-/*   Updated: 2020/09/30 20:24:22 by imicah           ###   ########.fr       */
+/*   Updated: 2020/10/06 23:01:20 by imicah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <semaphore.h>
+# include <fcntl.h>
 
 # define FALSE	0
 # define TRUE	1
