@@ -52,7 +52,7 @@ int		main(int ac, char **av)
 	sem_t		*sem;
 
 	sem_unlink("check_die");
-	sem = sem_open("check_die", O_CREAT);
+	sem = sem_open("check_die", O_CREAT, NULL, 1);
 	if (check_arguments(ac, av))
 		return (1);
 	table_init(&table, av, sem);
