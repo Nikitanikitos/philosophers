@@ -53,14 +53,17 @@ void	start_threads(t_table *table)
 int		main(int ac, char **av)
 {
 	t_table		table;
-	sem_t		*sem;
+	sem_t		*sem_die;
+	sem_t		*waiter;
 
-	sem_unlink("check_die");
-	sem = sem_open("check_die", O_CREAT, NULL, 1);
 	if (check_arguments(ac, av))
 		return (1);
-	table_init(&table, av, sem);
+	sem_unlink("/waiter");
+	sem_unlink("/sem_die");
+	waiter = sem_open("/waiter", O_CREAT, NULL, 1);
+	sem_die = sem_open("/sem_die", O_CREAT, NULL, 1);
+	table_init(&table, av, sem_die, waiter);
 	start_threads(&table);
-	sem_close(sem);
+	sem_close(sem_die);
 	return (0);
 }

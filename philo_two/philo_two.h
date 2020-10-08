@@ -33,7 +33,8 @@ typedef struct			s_table
 	unsigned int		time_to_sleep;
 	long int			start_simulation;
 	sem_t				*sem_forks;
-	sem_t				*sem;
+	sem_t				*sem_die;
+	sem_t				*waiter;
 }						t_table;
 
 typedef struct			s_philo
@@ -46,7 +47,7 @@ typedef struct			s_philo
 
 }						t_philo;
 
-void					table_init(t_table *table, char **av, sem_t *sem);
+void					table_init(t_table *table, char **av, sem_t *sem_die, sem_t *waiter);
 void					philo_init(t_philo *philo, t_table *table, int id,
 															int *death_flag);
 

@@ -20,10 +20,10 @@ void	*check_death(void *thread_data)
 	while (get_current_millisecond() - philo->last_lunch_time
 												<= philo->table->time_to_die)
 		usleep(10);
-	sem_wait(philo->table->sem);
+	sem_wait(philo->table->sem_die);
 	write_status_philo(philo, " is died...\n");
 	*philo->is_die = 1;
-	sem_post(philo->table->sem);
+	sem_post(philo->table->sem_die);
 	return (NULL);
 }
 
@@ -31,10 +31,12 @@ void	eating(t_philo *philo)
 {
 	const t_table	*table = philo->table;
 
+	sem_wait(table->waiter);
 	sem_wait(table->sem_forks);
 	write_status_philo(philo, " has taken a fork\n");
 	sem_wait(table->sem_forks);
 	write_status_philo(philo, " has taken a fork\n");
+	sem_post(table->waiter);
 	write_status_philo(philo, " is eating\n");
 	philo->last_lunch_time = get_current_millisecond();
 	ft_usleep(philo->table->time_to_eat);

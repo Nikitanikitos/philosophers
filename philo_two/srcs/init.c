@@ -12,7 +12,7 @@
 
 #include "philo_two.h"
 
-void	table_init(t_table *table, char **av, sem_t *sem)
+void	table_init(t_table *table, char **av, sem_t *sem_die, sem_t *waiter)
 {
 	struct timeval	timeval;
 
@@ -23,7 +23,8 @@ void	table_init(t_table *table, char **av, sem_t *sem)
 	table->time_to_eat = (unsigned)ft_atoi(av[3]);
 	table->time_to_sleep = (unsigned)ft_atoi(av[4]);
 	table->start_simulation = get_current_millisecond();
-	table->sem = sem;
+	table->sem_die = sem_die;
+	table->waiter = waiter;
 	if (av[5])
 		table->number_of_times_each_philo_must_eat = ft_atoi(av[5]);
 	else
