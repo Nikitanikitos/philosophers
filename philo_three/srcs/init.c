@@ -23,19 +23,21 @@ void	table_init(t_table *table, char **av, sem_t *sem)
 	table->time_to_eat = (unsigned)ft_atoi(av[3]);
 	table->time_to_sleep = (unsigned)ft_atoi(av[4]);
 	table->start_simulation = get_current_millisecond();
-	table->sem = sem;
+	table->kill_childs = sem;
 	if (av[5])
 		table->number_of_times_each_philo_must_eat = ft_atoi(av[5]);
 	else
 		table->number_of_times_each_philo_must_eat = -1;
 }
 
-void	philo_init(t_philo *philo, t_table *table, int id)
+void	philo_init(t_philo *philo, t_table *table, int id,
+													sem_t *sem_output_death)
 {
 	philo->id = id;
 	philo->table = table;
-	philo->is_die = 0;
+	philo->died = 0;
 	philo->last_lunch_time = get_current_millisecond();
+	philo->output_death = sem_output_death;
 	philo->number_of_times_philo_must_eat =
 									table->number_of_times_each_philo_must_eat;
 }

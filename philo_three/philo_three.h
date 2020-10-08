@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <semaphore.h>
 # include <fcntl.h>
+# include <signal.h>
 
 # define FALSE	0
 # define TRUE	1
@@ -34,20 +35,22 @@ typedef struct			s_table
 	unsigned int		time_to_sleep;
 	long int			start_simulation;
 	sem_t				*sem_forks;
-	sem_t				*sem;
+	sem_t				*kill_childs;
 }						t_table;
 
 typedef struct			s_philo
 {
 	int					id;
-	int					is_die;
+	int					died;
 	long int			last_lunch_time;
 	int					number_of_times_philo_must_eat;
+	sem_t				*output_death;
 	t_table				*table;
 }						t_philo;
 
 void					table_init(t_table *table, char **av, sem_t *sem);
-void					philo_init(t_philo *philo, t_table *table, int id);
+void					philo_init(t_philo *philo, t_table *table, int id,
+													sem_t *sem_output_death);
 
 void					action(t_philo *philo);
 void					*check_death(void *thread_data);

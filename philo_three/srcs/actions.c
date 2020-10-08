@@ -14,16 +14,17 @@
 
 void	*check_death(void *thread_data)
 {
-	t_philo				*philo;
+	t_philo		*philo;
 
 	philo = (t_philo*)thread_data;
 	while (get_current_millisecond() - philo->last_lunch_time
 												<= philo->table->time_to_die)
 		usleep(10);
+	sem_wait(philo->output_death);
 	if (philo->number_of_times_philo_must_eat)
 		write_status_philo(philo, " is died...\n");
-	philo->is_die = 1;
-	sem_post(philo->table->sem);
+	philo->died = 1;
+	sem_post(philo->table->kill_childs);
 	return (NULL);
 }
 
@@ -60,13 +61,13 @@ void	action(t_philo *philo)
 	pthread_create(&thread, NULL, check_death, philo);
 	while (philo->number_of_times_philo_must_eat)
 	{
-		if (philo->is_die)
+		if (philo->died)
 			break ;
 		eating(philo);
-		if (philo->is_die)
+		if (philo->died)
 			break ;
 		sleeping(philo);
-		if (philo->is_die)
+		if (philo->died)
 			break ;
 		thinking(philo);
 		philo->number_of_times_philo_must_eat--;
