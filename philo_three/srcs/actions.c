@@ -20,9 +20,8 @@ void	*check_death(void *thread_data)
 	while (get_current_millisecond() - philo->last_lunch_time
 												<= philo->table->time_to_die)
 		usleep(10);
-	sem_wait(philo->table->sem);
 	write_status_philo(philo, " is died...\n");
-	*philo->is_die = 1;
+	philo->is_die = 1;
 	sem_post(philo->table->sem);
 	return (NULL);
 }
@@ -53,26 +52,23 @@ void	thinking(t_philo *philo)
 	write_status_philo(philo, " is thinking\n");
 }
 
-void	*action(void *thread_data)
+void	action(t_philo *philo)
 {
-	t_philo		*philo;
 	pthread_t	thread;
 
-	pthread_create(&thread, NULL, check_death, thread_data);
-	philo = (t_philo*)thread_data;
+	pthread_create(&thread, NULL, check_death, philo);
 	while (philo->number_of_times_philo_must_eat)
 	{
-		if (*philo->is_die)
+		if (philo->is_die)
 			break ;
 		eating(philo);
-		if (*philo->is_die)
+		if (philo->is_die)
 			break ;
 		sleeping(philo);
-		if (*philo->is_die)
+		if (philo->is_die)
 			break ;
 		thinking(philo);
 		philo->number_of_times_philo_must_eat--;
 	}
 	pthread_join(thread, NULL);
-	return (NULL);
 }

@@ -40,17 +40,16 @@ typedef struct			s_table
 typedef struct			s_philo
 {
 	int					id;
-	int					*is_die;
+	int					is_die;
 	long int			last_lunch_time;
 	int					number_of_times_philo_must_eat;
 	t_table				*table;
 }						t_philo;
 
 void					table_init(t_table *table, char **av, sem_t *sem);
-void					philo_init(t_philo *philo, t_table *table, int id,
-															int *death_flag);
+void					philo_init(t_philo *philo, t_table *table, int id);
 
-void					*action(void *thread_data);
+void					action(t_philo *philo);
 void					*check_death(void *thread_data);
 void					write_status_philo(t_philo *philo, char *action);
 void					ft_usleep(long int time);
