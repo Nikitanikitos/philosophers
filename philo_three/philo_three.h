@@ -42,7 +42,7 @@ typedef struct			s_philo
 	int					id;
 	int					*is_die;
 	long int			last_lunch_time;
-	int					number_of_times_each_philo_must_eat;
+	int					number_of_times_philo_must_eat;
 	t_table				*table;
 }						t_philo;
 
