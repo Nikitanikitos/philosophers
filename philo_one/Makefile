@@ -10,30 +10,33 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= philo_one
+NAME	=	philo_one
 
-SRCS    = $(shell find srcs/ -type f -name '*.c' )
-OBJS    = $(SRCS:%.c=%.o)
+SRCS    =	srcs/action_utils.c srcs/actions.c \
+			srcs/check_arguments.c srcs/ft_atoi_itoa.c \
+			srcs/ft_put.c srcs/init.c srcs/philo_one.c srcs/utils.c
 
-HEADERS = -I. -pthread
+OBJS    =	$(SRCS:%.c=%.o)
 
-FLAGS   = -Wall -Wextra -Werror
+HEADERS =	-I. -pthread
 
-.PHONY: all re clean fclean
+FLAGS   =	-Wall -Wextra -Werror
 
-all: $(NAME)
+.PHONY:		all re clean fclean
 
-$(NAME): $(OBJS)
-	gcc ${FLAGS} ${HEADERS} ${OBJS} -o ${NAME}
+all:		$(NAME)
 
-%.o: %.c
+$(NAME):	$(OBJS)
+	gcc ${OBJS} -o ${NAME}
+
+%.o:		%.c
 	gcc ${FLAGS} ${HEADERS} -o $@ -c $<
 
 clean:
 	rm -f $(OBJS)
 
-fclean: clean
+fclean:		clean
 	rm -f $(NAME)
 
-re: fclean all
+re:			fclean all
 
