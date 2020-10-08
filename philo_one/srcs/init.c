@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_one.h"
 
 void	table_init(t_table *table, char **av, pthread_mutex_t *mutex)
 {
