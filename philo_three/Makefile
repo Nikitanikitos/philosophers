@@ -12,7 +12,10 @@
 
 NAME	= philo_three
 
-SRCS    = $(shell find srcs/ -type f -name '*.c' )
+
+SRCS    =	srcs/actions.c srcs/check_arguments.c srcs/ft_atoi_itoa.c \
+			srcs/ft_put.c srcs/init.c srcs/philo_three.c srcs/utils.c
+
 OBJS    = $(SRCS:%.c=%.o)
 
 HEADERS = -I. -pthread
