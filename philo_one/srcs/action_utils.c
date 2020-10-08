@@ -38,9 +38,12 @@ void	*check_death(void *thread_data)
 	while (get_current_millisecond() - philo->last_lunch_time
 												<= philo->table->time_to_die)
 		usleep(10);
-	pthread_mutex_lock(philo->table->mutex);
-	write_status_philo(philo, " is died...\n");
-	*philo->is_die = 1;
-	pthread_mutex_unlock(philo->table->mutex);
+	if (philo->number_of_times_philo_must_eat)
+	{
+		pthread_mutex_lock(philo->table->mutex);
+		write_status_philo(philo, " is died...\n");
+		*philo->is_die = 1;
+		pthread_mutex_unlock(philo->table->mutex);
+	}
 	return (NULL);
 }
