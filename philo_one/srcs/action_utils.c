@@ -42,7 +42,7 @@ void	*check_death(void *thread_data)
 	{
 		pthread_mutex_lock(philo->table->mutex);
 		write_status_philo(philo, " is died...\n");
-		*philo->is_die = 1;
+		*philo->someone_died = 1;
 		pthread_mutex_unlock(philo->table->mutex);
 	}
 	return (NULL);

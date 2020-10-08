@@ -60,7 +60,7 @@ void		write_status_philo(t_philo *philo, char *action)
 {
 	char	*output_string;
 
-	if (*philo->is_die)
+	if (*philo->someone_died)
 		return ;
 	output_string = get_output_string(
 			ft_itoa(get_current_millisecond() - philo->table->start_simulation),

@@ -34,7 +34,7 @@ void	philo_init(t_philo *philo, t_table *table, int id, int *death_flag)
 {
 	philo->id = id;
 	philo->table = table;
-	philo->is_die = death_flag;
+	philo->someone_died = death_flag;
 	philo->last_lunch_time = get_current_millisecond();
 	philo->number_of_times_philo_must_eat =
 									table->number_of_times_each_philo_must_eat;

@@ -51,13 +51,13 @@ void	*action(void *thread_data)
 	philo = (t_philo*)thread_data;
 	while (philo->number_of_times_philo_must_eat)
 	{
-		if (*philo->is_die)
+		if (*philo->someone_died)
 			break ;
 		eating(philo);
-		if (*philo->is_die)
+		if (*philo->someone_died)
 			break ;
 		sleeping(philo);
-		if (*philo->is_die)
+		if (*philo->someone_died)
 			break ;
 		thinking(philo);
 		philo->number_of_times_philo_must_eat--;
